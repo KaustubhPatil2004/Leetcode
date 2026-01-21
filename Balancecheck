@@ -1,0 +1,37 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int height(TreeNode*root){
+        if(root==NULL) return 0;
+
+        int left=height(root->left);
+        if(left==-1) return -1;                  //Left side unbalanced aahe re after checking
+        int right=height(root->right);
+        if(right==-1)return -1;                  //Right side unbalanced aahe re after checking
+
+        if(abs(left-right)>1){
+            return -1;                           //We are checking here for balancing and unbalancing
+        }
+       return (max(left,right)+1);
+    }
+    bool isBalanced(TreeNode* root) {
+        if(root==NULL) return true;
+        int ans=height(root);
+       if(ans!=-1){
+        return true;
+       }   
+       else{
+        return false;
+       }
+    }
+};
