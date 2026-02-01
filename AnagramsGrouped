@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<vector<string>>ans;
+        map<string ,vector<string>>M;
+
+
+        for(string unsorted:strs){
+            string sortedWord=unsorted;
+            sort(sortedWord.begin(),sortedWord.end());
+            M[sortedWord].push_back(unsorted);
+        }
+
+        for(auto &it :M){
+            ans.push_back(it.second);
+        }
+        return ans;
+    }
+};
