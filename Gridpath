@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int solver(vector<vector<int>>& grid, vector<vector<int>>& dp, int row,
+               int coloumn, int& m, int& n) {
+
+        if (row == (m - 1) && coloumn == (n - 1)) {
+            return grid[row][coloumn];
+        }
+        if (row >= m || coloumn >= n) return INT_MAX;
+
+
+        if (dp[row][coloumn] != (-1))
+            return dp[row][coloumn];
+
+        int right=INT_MAX;
+        int down=INT_MAX;
+        if (row + 1 < m) {
+            int temp=solver(grid, dp, row + 1, coloumn, m, n);
+            if(temp!=INT_MAX){
+               right =
+                grid[row][coloumn] + temp;   
+            }
+        } 
+
+        if (coloumn + 1 < n) {
+            int temp2=solver(grid, dp, row, coloumn + 1, m, n);
+            if(temp2!=INT_MAX){
+                 down =
+                grid[row][coloumn] +temp2;
+            }
+        }
+
+        return dp[row][coloumn] = min(down, right);
+    }
+
+    int minPathSum(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        vector<vector<int>> dp(m + 1, vector<int>(n + 1, -1));
+        int row = 0;
+        int coloumn = 0;
+        int ans = solver(grid, dp, row, coloumn, m, n);
+        return ans;
+    }
+};
