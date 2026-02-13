@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int solver(int& m, int& n, int row, int col, vector<vector<int>>& dp) {
+
+        if (col == n - 1 && row == m - 1) {
+            return 1;
+        }
+
+        if (col > n - 1 || row > m - 1) {
+            return 0;
+        }
+
+        if(dp[row][col]!=-1) return dp[row][col];
+
+        int right=0;
+        int down=0;
+
+        if(row<m-1){
+         right=solver(m,n,row+1,col,dp);
+        }
+
+        if(col<n-1){
+          down=solver(m,n,row,col+1,dp);
+        }
+      
+      return dp[row][col]=right+down;
+    }
+
+    int uniquePaths(int m, int n) {
+        vector<vector<int>> dp(m , vector<int>(n , -1));
+        int row = 0;
+        int col = 0;
+        int ans = solver(m, n, row, col, dp);
+        return ans;
+    }
+};
