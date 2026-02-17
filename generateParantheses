@@ -1,0 +1,23 @@
+class Solution {
+public:
+    void solver(int open,int close,int &n,string process,vector<string>&ans){
+        if(process.size()==2*n){
+            ans.push_back(process);
+            process.clear();
+            return;
+        }
+       if(open<n){
+        solver(open+1,close,n,process+"(",ans);
+       }
+       if(close<open){
+        solver(open,close+1,n,process+")",ans);
+       }
+    }
+   
+    vector<string> generateParenthesis(int n) {
+        vector<string>ans;
+        string process="";
+        solver(0,0,n,process,ans);
+        return ans;
+    }
+};
