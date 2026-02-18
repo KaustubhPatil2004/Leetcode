@@ -1,0 +1,25 @@
+class Solution {
+public:
+  int solver(int row,int col,vector<vector<int>>&dp){
+    if(col==row || col==0){
+        return 1;
+    }
+    if(dp[row][col]!=-1) return dp[row][col];
+    
+    return dp[row][col]=solver(row-1,col-1,dp)+solver(row-1,col,dp);
+  }
+
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>>dp(numRows,vector<int>(numRows,-1));
+        vector<vector<int>>ans;    
+        
+        for(int i=0;i<numRows;i++){
+            vector<int>row;
+             for(int k=0;k<=i;k++){
+                row.push_back(solver(i,k,dp));
+             }
+             ans.push_back(row);
+        }
+        return ans;
+    }
+};
