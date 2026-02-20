@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool solver(vector<int>& nums, int index, int &size, vector<int>& dp) {
+        if (index == size) {
+            return true;
+        }
+        if (index > size) {
+            return false;
+        }
+
+        if(dp[index]!=-1) return dp[index];
+       
+       for(int i=1;i<=nums[index];i++){
+         if(solver(nums,index+i,size,dp)){
+            return dp[index]=1;
+         }
+       }
+       return dp[index]=0;
+    }
+    bool canJump(vector<int>& nums) {
+        int size = nums.size() - 1;
+        vector<int> dp(size + 1, -1);
+        bool ans = solver(nums,0, size, dp);
+        return ans;
+    }
+};
