@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool solver(vector<int>&arr,int size,int index,vector<int>&dp){
+        if(index<0){
+            return false;
+        }
+        if(index>=size){
+            return false;
+        }
+        if(arr[index]==0){
+            return true;
+        }
+        if(dp[index]!=-1) return dp[index];
+        dp[index]=0;
+       bool left=false;
+       bool right=false;
+       left=solver(arr,size,index-arr[index],dp);
+       right=solver(arr,size,index+arr[index],dp);
+
+       bool ans=(left||right);
+       return dp[index]=ans;
+    }
+    bool canReach(vector<int>& arr, int start) {
+        int size=arr.size();
+       vector<int>dp(size,-1);
+       bool ans=solver(arr,size,start,dp);
+       return ans;
+    }
+};
