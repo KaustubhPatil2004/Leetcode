@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maxDistance(vector<int>& colors) {
+        int l1=0;
+        int r1=colors.size()-1;
+        int l2=0;
+        int r2=colors.size()-1;
+        int maxi=0;
+
+        while(l1<r1){
+           if(colors[l1]!=colors[r1]){
+               maxi=max(maxi,r1-l1);
+           }
+           r1--;
+        }
+        while(l2<r2){
+            if(colors[l2]!=colors[r2]){
+                maxi=max(maxi,r2-l2);
+            }
+            l2++;
+        }
+        return maxi;
+    }
+};
